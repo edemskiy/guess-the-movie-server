@@ -7,7 +7,10 @@ const questionRouter = require("express").Router();
 require("dotenv").config();
 
 questionRouter.route("/").get((req, res) => {
-  const imgFolder = `${req.hostname}:${process.env.PORT}/images/files/`;
+  const imgFolder =
+    req.hostname === "localhost"
+      ? `${req.hostname}:${process.env.PORT}/images/files/`
+      : `${req.hostname}/images/files/`;
   Movie.aggregate([{ $sample: { size: 4 } }])
     .then(movies => Image.populate(movies, { path: "images" }))
     .then(movies => {
