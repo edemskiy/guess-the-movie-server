@@ -7,7 +7,7 @@ const questionRouter = require("express").Router();
 require("dotenv").config();
 
 questionRouter.route("/").get((req, res) => {
-  const imgFolder =
+  const imgPath =
     req.hostname === "localhost"
       ? `${req.hostname}:${process.env.PORT}/images/files/`
       : `${req.hostname}/images/files/`;
@@ -16,7 +16,8 @@ questionRouter.route("/").get((req, res) => {
     .then(movies => {
       const movie = movies[Math.floor(Math.random() * 4)];
       const imageURL =
-        imgFolder +
+        "http://" +
+        imgPath +
         movie.images[Math.floor(Math.random() * movie.images.length)].name;
       const choises = movies.map(movie => movie.title);
       const answer = movie.title;
