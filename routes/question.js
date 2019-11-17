@@ -1,11 +1,13 @@
-import Image from "../models/image.model";
-import Movie from "../models/movie.model";
+const Image = require("../models/image.model");
+const Movie = require("../models/movie.model");
 
-import { Router } from "express";
+const path = require("path");
+const questionRouter = require("express").Router();
 
-const questionRouter = Router();
-const imgFolder = `http://localhost:5000/images/files/`; //TODO change to process.env.PORT
+require("dotenv").config();
+
 questionRouter.route("/").get((req, res) => {
+  const imgFolder = `${req.hostname}:${process.env.PORT}/images/files/`;
   Movie.aggregate([{ $sample: { size: 4 } }])
     .then(movies => Image.populate(movies, { path: "images" }))
     .then(movies => {
@@ -20,4 +22,4 @@ questionRouter.route("/").get((req, res) => {
     });
 });
 
-export default questionRouter;
+module.exports = questionRouter;

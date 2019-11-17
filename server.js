@@ -1,6 +1,6 @@
-import moviesRouter from "./routes/movies";
-import imagesRouter from "./routes/images";
-import questionRouter from "./routes/question";
+const moviesRouter = require("./routes/movies");
+const imagesRouter = require("./routes/images");
+const questionRouter = require("./routes/question");
 
 const express = require("express");
 const fs = require("fs");
@@ -33,10 +33,6 @@ app.use("/images/files", express.static(__dirname + "/images"));
 app.use("/movies", moviesRouter);
 app.use("/images", imagesRouter);
 app.use("/question", questionRouter);
-
-app.get("/", (req, res) => {
-  res.send("hello startpage");
-});
 
 app.get("/api/random-choises", (req, res) => {
   n = req.query.n;

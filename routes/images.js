@@ -1,11 +1,7 @@
-import Image from "../models/image.model";
-import Movie from "../models/movie.model";
+const Image = require("../models/image.model");
+const Movie = require("../models/movie.model");
 
-import { Router } from "express";
-
-const express = require("express");
-
-const imagesRouter = Router();
+const imagesRouter = require("express").Router();
 imagesRouter.route("/").get((req, res) => {
   Image.find()
     .then(images => res.json(images))
@@ -33,4 +29,4 @@ imagesRouter.route("/add").post((req, res) => {
   });
 });
 
-export default imagesRouter;
+module.exports = imagesRouter;

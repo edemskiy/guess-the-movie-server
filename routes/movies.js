@@ -1,8 +1,6 @@
-import Movie from "../models/movie.model";
+const Movie = require("../models/movie.model");
+const moviesRouter = require("express").Router();
 
-import { Router } from "express";
-
-const moviesRouter = Router();
 moviesRouter.route("/").get((req, res) => {
   Movie.find()
     .then(movies => res.json(movies))
@@ -19,4 +17,4 @@ moviesRouter.route("/add").post((req, res) => {
     .catch(err => res.status(400).json(`Error: ${err}`));
 });
 
-export default moviesRouter;
+module.exports = moviesRouter;
