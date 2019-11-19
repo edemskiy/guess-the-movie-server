@@ -34,28 +34,8 @@ app.use("/movies", moviesRouter);
 app.use("/images", imagesRouter);
 app.use("/question", questionRouter);
 
-app.get("/api/random-choises", (req, res) => {
-  n = req.query.n;
-  fs.readdir("images/", (err, files) => {
-    if (err) {
-      response = err.message;
-    } else {
-      if (n > files.length) {
-        n = files.length;
-      }
-
-      choises = files.sort(() => 0.5 - Math.random()).slice(0, n);
-      image = `images/${choises[Math.floor(Math.random() * n)]}`;
-
-      choises = choises.map(name => name.slice(0, name.lastIndexOf(".")));
-      response = { choises, image };
-    }
-    res.send(JSON.stringify(response));
-  });
-});
-
 app
   .listen(port, () => {
     console.log(`server running on port: ${port}`);
   })
-  .on("error", err => console.log(`error!!: ${err.message}`));
+  .on("error", err => console.log(`error: ${err.message}`));
